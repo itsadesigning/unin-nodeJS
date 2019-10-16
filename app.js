@@ -5,12 +5,10 @@ require('dotenv').config();
 
 const { usersRouter } = require('./routers');
 
-const getIndex = (req, res) => {
-  res.status(200).send('Naslovnica');
-};
 
-app.route('/')
-  .get(getIndex);
+app.get('/', (req, res) => {
+  res.status(200).send('Naslovnica');
+});
 
 app.use('/api/users', usersRouter);
 
