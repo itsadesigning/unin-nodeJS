@@ -1,12 +1,30 @@
-// UNOS OSNOVNIH MODULA
+// OSNOVNI MODULI
 const http = require('http');
+const url = require('url');
+const querystring = require('querystring');
 
-// KREIRAMO BAZIČNI SERVER
+// THIRD-PARTY MODULI
+const dotenv = require('dotenv').config();
+
 const server = http.createServer((req, res) => {
-  res.end('Zdravo svijete!');
+  // PARSIRAMO URL I IZ NJEGA IZVLAČIMO POTREBNE PODATKE
+  const { pathname, query } = url.parse(req.url);
+  const { id } = querystring.parse(query);
+
+  // ODGOVOR ŠALJEMO OVISNO O IZLAZNOJ TOČKI
+  if ( pathname === '/' ) {
+    res.writeHead(200, { 'Content-type': 'text/html' });
+    res.end('<h1>Naslovnica</h1>')
+  } else if ( pathname === '/api') {
+    res.writeHead(200, { 'Content-type': 'application/json' });
+    res.end({ ime: 'Ivan', prezime: 'Bogdan' });
+  } else {
+    res.writeHead(200, { 'Content-type': 'text/html' });
+    res.end('<h1>Naslovnica</h1>')
+  }
 });
 
-// POSTAVLJAMO SERVER DA SLUŠA NA LOCALHOST PORTU 3000
-server.listen(3000, '127.0.0.1', () => {
-  console.log(`Slušamo na portu 3000!`);
+const PORT = process.env.PORT;
+server.listen(PORT, '127.0.0.1', () => {
+  console.log(`Slušamo na portu ${PORT}!`);
 });
