@@ -1,11 +1,23 @@
 // IMPORTS
 const express = require('express');
+const mongoose = require('mongoose');
 const morgan = require('morgan');
 
 const api = require('./api');
 const static = require('./static');
 
 require('dotenv-flow').config();
+
+const DB = process.env.DB_ATLAS.replace('<PASSWORD>', process.env.DB_PASSWORD);
+
+mongoose.connect(DB, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+}).then(con => {
+  console.log(con.connections);
+});
 
 // APP
 const app = express();
