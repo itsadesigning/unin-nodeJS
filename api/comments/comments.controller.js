@@ -1,11 +1,17 @@
 module.exports = {
+  getId: (req, res, next, val) => {
+    console.log(val);
+  },
   getUsers: (req, res) => {
     res.status(200).json({ status: 'success' });
   },
-  postUser: (req, res) => {
+  getUser: (req, res) => {
     res.status(200).json({ status: 'success' });
   },
-  updateUser: (req, res) => {
+  postUser: (req, res) => {
+    res.status(201).json({ status: 'success' });
+  },
+  putUser: (req, res) => {
     const { id } = req.params;
     res.status(200).json({ status: 'success' });
   },

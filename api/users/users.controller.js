@@ -1,4 +1,8 @@
 module.exports = {
+  getId: (req, res, next, val) => {
+    console.log(val);
+    next();
+  },
   getUsers: (req, res) => {
     res.status(200).json({ status: 'success' });
   },

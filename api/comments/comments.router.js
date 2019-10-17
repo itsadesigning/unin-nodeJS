@@ -4,10 +4,13 @@ const {
   getUser,
   postUser,
   putUser,
-  deleteUser
-} = require('../controllers/users.controller');
+  deleteUser,
+  getId
+} = require('./comments.controller');
 
 const router = express.Router();
+
+router.param('id', getId);
 
 router
   .route('/')

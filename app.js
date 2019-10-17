@@ -1,18 +1,26 @@
+// IMPORTS
 const express = require('express');
-const app = express();
+const morgan = require('morgan');
+
+const api = require('./api');
+const static = require('./static');
 
 require('dotenv').config();
 
-const { usersRouter } = require('./routers');
+// APP
+const app = express();
 
+// MIDDLEWARE
+app.use(morgan('dev'));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.status(200).send('Naslovnica');
-});
+// STATIC
+app.use('/', static);
+app.use(express.static(`${__dirname}/public`));
 
-app.use('/api/users', usersRouter);
+// ROUTERS
+app.use('/api/users', api.users);
 
-// MIDDLEWARE 
 app.use((req, res) => {
   res.status(404).send('Page not found!');
 });
