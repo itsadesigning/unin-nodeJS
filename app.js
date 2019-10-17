@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const api = require('./api');
 const static = require('./static');
 
-require('dotenv').config();
+require('dotenv-flow').config();
 
 // APP
 const app = express();

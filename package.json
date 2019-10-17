@@ -4,6 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
+    "start:dev": "NODE_ENV=development npm run start",
+    "start:staging": "NODE_ENV=staging npm run start",
+    "start:production": "NODE_ENV=production npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
