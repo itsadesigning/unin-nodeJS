@@ -10,12 +10,10 @@ const {
 
 const router = express.Router();
 
-router.param('id', getId);
-
 router
   .route('/')
   .get(getUsers)
-  .post(postUser)
+  .post(postUser);
 
 router
   .route('/:id')

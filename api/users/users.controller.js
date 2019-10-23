@@ -1,23 +1,46 @@
+const User = require('./users.model');
+
 module.exports = {
-  getId: (req, res, next, val) => {
-    console.log(val);
-    next();
+  getUsers: async (req, res) => {
+    try {
+      res.status(200).json(await User.find());
+    } catch (error) {
+      res.status(404).send(error);
+    }
   },
-  getUsers: (req, res) => {
-    res.status(200).json({ status: 'success' });
+  getUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(404).send(error);
+    }
   },
-  getUser: (req, res) => {
-    res.status(200).json({ status: 'success' });
+  postUser: async (req, res) => {
+    try {
+      const user = await User.create(req.body);
+      res.status(201).json(user);
+    } catch (error) {
+      res.status(400).json(error);
+    }
   },
-  postUser: (req, res) => {
-    res.status(201).json({ status: 'success' });
+  putUser: async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        useValidators: true
+      });
+      res.status(204).json(user);
+    } catch (error) {
+      res.status(400).send(error);
+    }
   },
-  putUser: (req, res) => {
-    const { id } = req.params;
-    res.status(200).json({ status: 'success' });
-  },
-  deleteUser: (req, res) => {
-    const { id } = req.params;
-    res.status(200).json({ status: 'success' });
+  deleteUser: async (req, res) => {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      res.status(204).json({});
+    } catch (error) {
+      res.status(400).send(error);
+    }
   }
 }

@@ -1,26 +1,21 @@
 // IMPORTS
 const express = require('express');
-const mongoose = require('mongoose');
 const morgan = require('morgan');
 
 const api = require('./api');
 const static = require('./static');
-
-require('dotenv-flow').config();
-
-const DB = process.env.DB_ATLAS.replace('<PASSWORD>', process.env.DB_PASSWORD);
-
-mongoose.connect(DB, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
-}).then(con => {
-  console.log(con.connections);
-});
+const db = require('./db');
 
 // APP
 const app = express();
+
+// CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
 
 // MIDDLEWARE
 app.use(morgan('dev'));
