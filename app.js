@@ -23,7 +23,6 @@ app.use(express.json());
 
 // STATIC
 app.use(express.static(`${__dirname}/public`));
-app.use('/', static);
 
 // ROUTERS
 app.use('/api/users', api.users);
