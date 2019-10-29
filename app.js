@@ -2,9 +2,11 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const api = require('./api');
-const static = require('./static');
-const db = require('./db');
+require('dotenv-flow').config();
+
+const api = require('./src/api');
+const static = require('./src/static');
+const db = require('./src/db');
 
 // APP
 const app = express();
@@ -25,7 +27,8 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
 // ROUTERS
-app.use('/api/users', api.users);
+app.use('/api/mongodb/users', api.mongoose.users);
+app.use('/api/mariadb/users', api.sequelize.users);
 
 app.use((req, res) => {
   res.status(404).send('Page not found!');

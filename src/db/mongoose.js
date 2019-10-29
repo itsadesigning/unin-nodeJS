@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 
-require('dotenv-flow').config();
-
 // USE TO CONNECT TO ATLAS
-const DB = process.env.DB_ATLAS.replace('<PASSWORD>', process.env.DB_PASSWORD);
+const DB = process.env.MONGODB_ATLAS.replace('<PASSWORD>', process.env.DB_PASSWORD);
 
-mongoose.connect(process.env.DB_LOCAL, {
+mongoose.connect(process.env.MONGODB_LOCAL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
