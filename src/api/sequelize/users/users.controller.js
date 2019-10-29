@@ -2,26 +2,45 @@ const User = require('./users.model');
 
 module.exports = {
   getUsers: async (req, res) => {
-    const users = await User.find();
-    res.status(200).json(users);
+    try {
+      const users = await User.findAll();
+      res.status(200).json(users);
+    } catch(err) {
+      res.status(404).json({});
+    }
   },
   getUser: async (req, res) => {
-    const user = await User.findById(req.params.id);
-    res.status(200).json(user);
+    try {
+      const user = await User.findByPk(req.params.id);
+      res.status(200).json(user);
+    } catch(err) {
+      res.status(404).json({});
+    }
   },
   postUser: async (req, res) => {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
+    try {
+      const user = await User.create(req.body);
+      res.status(201).json(user);
+    } catch(err) {
+      res.status(404).json({});
+    }
   },
   putUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      useValidators: true
-    })
-    res.status(204).json(user);
+    try {
+      const user = await User.findByPk(req.params.id)
+      user.update(req.body);
+      res.status(204).json(user);
+    } catch(err) {
+      res.status(404).json({});
+    }
   },
   deleteUser: async (req, res) => {
-    User.findByIdAndDelete(req.params.id);
-    res.status(204).json({});
+    try {
+      const user = await User.findByPk(req.params.id)
+      user.destroy();
+      res.status(204).json(user);
+    } catch(err) {
+      res.status(404).json({});
+    }
   }
 }

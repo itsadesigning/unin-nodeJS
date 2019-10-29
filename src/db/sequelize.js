@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('unin', 'ibogdan', process.env.MARIADB_LOCAL_PASS, {
+module.exports = new Sequelize('unin', 'ibogdan', 'password', {
   host: 'localhost',
   dialect: 'mariadb'
 });
 
-module.exports = sequelize;

@@ -1,9 +1,18 @@
 const dotenv = require('dotenv');
 const app = require('./app');
-
-dotenv.config({ path: './config.env' });
+const { mongoose, sequelize } = require('./src/db');
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}...`);
-});
+
+sequelize
+  .sync()
+  .then(res => {
+    app.listen(PORT, () => {
+      console.log(`Listening on port ${PORT}...`);
+    });
+  })
+  .catch(err => {
+    console.log('SEQUELIZE SYNC ERR:', err);
+  });
+
+
