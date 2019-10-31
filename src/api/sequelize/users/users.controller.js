@@ -23,9 +23,9 @@ module.exports = {
   },
   postUser: async (req, res) => {
     try {
-      console.time(`POST /mariadb/users/${req.params.id}`);
+      console.time(`POST /mariadb/users`);
       const user = await User.create(req.body);
-      console.timeEnd(`POST /mariadb/users/${req.params.id}`);
+      console.timeEnd(`POST /mariadb/users`);
       res.status(201).json(user);
     } catch(err) {
       res.status(404).json({});
@@ -34,19 +34,27 @@ module.exports = {
   putUser: async (req, res) => {
     try {
       console.time(`PUT /mariadb/users/${req.params.id}`);
-      const user = await User.findByPk(req.params.id)
-      await user.update(req.body);
+      const user = await User.update( req.body,
+      {
+        where: {
+          _id: req.params.id
+        }
+      })
       console.timeEnd(`PUT /mariadb/users/${req.params.id}`);
       res.status(204).json(user);
     } catch(err) {
+      console.log(err);
       res.status(404).json({});
     }
   },
   deleteUser: async (req, res) => {
     try {
       console.time(`DELETE /mariadb/users/${req.params.id}`);
-      const user = await User.findByPk(req.params.id)
-      await user.destroy();
+      await User.destroy({
+        where: {
+          _id: req.params.id
+        }
+      });
       console.timeEnd(`DELETE /mariadb/users/${req.params.id}`);
       res.status(204).json({});
     } catch(err) {

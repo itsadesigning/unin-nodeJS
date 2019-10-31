@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 });
 
 // MIDDLEWARE
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(express.json());
 
 // STATIC

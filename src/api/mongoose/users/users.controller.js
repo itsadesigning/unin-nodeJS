@@ -23,9 +23,9 @@ module.exports = {
   },
   postUser: async (req, res) => {
     try {
-      console.time(`POST /mongodb/users/${req.params.id}`);
+      console.time(`POST /mongodb/users`);
       const user = await User.create(req.body);
-      console.timeEnd(`POST /mongodb/users/${req.params.id}`);
+      console.timeEnd(`POST /mongodb/users`);
       res.status(201).json(user);
     } catch(err) {
       res.status(404).json({});
@@ -47,7 +47,7 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       console.time(`DELETE /mongodb/users/${req.params.id}`);
-      User.findByIdAndDelete(req.params.id);
+      await User.findByIdAndDelete(req.params.id);
       console.timeEnd(`DELETE /mongodb/users/${req.params.id}`);
       res.status(204).json({});
     } catch(err) {

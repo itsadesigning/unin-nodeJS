@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 sequelize
   .sync()
   .then(res => {
+    console.log('Connected to MariaDB!');
     app.listen(PORT, () => {
       console.log(`Listening on port ${PORT}...`);
     });
@@ -14,5 +15,3 @@ sequelize
   .catch(err => {
     console.log('SEQUELIZE SYNC ERR:', err);
   });
-
-

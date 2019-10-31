@@ -6,7 +6,7 @@ const {
 const { sequelize } = require(`../../../db`);
 
 module.exports = sequelize.define('user', {
-  id: {
+  _id: {
     type: INTEGER,
     primaryKey: true,
     unique: true,
